@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Calbee 卡樂比｜零食市場資料整理員</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --black: #000000;
+    --white: #ffffff;
+    --yellow: #FFD600;
+    --gray-light: #F6F6F6;
+    --gray-mid: #E5E5E5;
+    --gray-dark: #767676;
+    --text: #141414;
+    --radius: 16px;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Noto Sans TC', sans-serif;
+    background: var(--white);
+    color: var(--text);
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    background: var(--black);
+    min-height: 100svh;
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-img-wrap {
+    width: 100%;
+    height: 52vw;
+    max-height: 360px;
+    min-height: 220px;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+
+  .hero-img-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    display: block;
+  }
+
+  .hero-content {
+    flex: 1;
+    padding: 28px 24px 36px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 24px;
+  }
+
+  .brand-tag {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    color: var(--yellow);
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+
+  .hero-title {
+    font-size: clamp(28px, 8vw, 40px);
+    font-weight: 900;
+    color: var(--white);
+    line-height: 1.18;
+    letter-spacing: -0.02em;
+  }
+
+  .hero-title span {
+    color: var(--yellow);
+  }
+
+  .hero-sub {
+    font-size: 15px;
+    color: rgba(255,255,255,0.6);
+    line-height: 1.7;
+    margin-top: 12px;
+    font-weight: 300;
+  }
+
+  .cta-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background: var(--yellow);
+    color: var(--black);
+    font-weight: 900;
+    font-size: 16px;
+    letter-spacing: 0.01em;
+    border-radius: 12px;
+    padding: 18px 24px;
+    text-decoration: none;
+    width: 100%;
+    transition: transform 0.15s, box-shadow 0.15s;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .cta-btn:active { transform: scale(0.97); }
+
+  .cta-btn svg { flex-shrink: 0; }
+
+  /* ── SECTION BASE ── */
+  section {
+    padding: 48px 24px;
+  }
+
+  .section-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    color: var(--gray-dark);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  .section-title {
+    font-size: 22px;
+    font-weight: 900;
+    line-height: 1.25;
+    letter-spacing: -0.02em;
+    margin-bottom: 20px;
+  }
+
+  /* ── INTRO ── */
+  .intro {
+    background: var(--gray-light);
+    border-top: 3px solid var(--yellow);
+  }
+
+  .intro-body {
+    font-size: 16px;
+    line-height: 1.9;
+    color: #222;
+    font-weight: 400;
+  }
+
+  .intro-body .highlight {
+    font-weight: 700;
+    color: var(--black);
+    background: var(--yellow);
+    padding: 1px 4px;
+    border-radius: 3px;
+  }
+
+  /* ── TASKS ── */
+  .tasks { background: var(--white); }
+
+  .task-list { display: flex; flex-direction: column; gap: 12px; }
+
+  .task-card {
+    background: var(--gray-light);
+    border-radius: var(--radius);
+    padding: 18px 20px;
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+  }
+
+  .task-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    background: var(--black);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 16px;
+  }
+
+  .task-text h3 {
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 4px;
+    letter-spacing: -0.01em;
+  }
+
+  .task-text p {
+    font-size: 13px;
+    color: var(--gray-dark);
+    line-height: 1.6;
+  }
+
+  /* ── ADS ── */
+  .ads { background: var(--black); padding-bottom: 40px; }
+
+  .ads .section-label { color: rgba(255,255,255,0.4); }
+  .ads .section-title { color: var(--white); }
+
+  .ads-scroll {
+    display: block;
+  }
+
+  .ad-card {
+    width: 100%;
+    border-radius: var(--radius);
+    overflow: hidden;
+    background: #111;
+  }
+
+  .ad-card img {
+    width: 100%;
+    display: block;
+    height: auto;
+    object-fit: contain;
+  }
+
+  .scroll-dots {
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+    margin-top: 16px;
+  }
+
+  .scroll-dots span {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.25);
+    transition: background 0.3s;
+  }
+
+  .scroll-dots span.active { background: var(--yellow); width: 20px; border-radius: 3px; }
+
+  /* ── TIME & PAY ── */
+  .conditions { background: var(--gray-light); }
+
+  .cond-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+
+  .cond-card {
+    background: var(--white);
+    border-radius: var(--radius);
+    padding: 20px 16px;
+    text-align: center;
+  }
+
+  .cond-card .val {
+    font-size: 22px;
+    font-weight: 900;
+    letter-spacing: -0.03em;
+    color: var(--black);
+    line-height: 1.1;
+    margin-bottom: 6px;
+  }
+
+  .cond-card .val span {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--gray-dark);
+  }
+
+  .cond-card .lbl {
+    font-size: 12px;
+    color: var(--gray-dark);
+    line-height: 1.4;
+  }
+
+  .bonus-card {
+    background: var(--yellow);
+    border-radius: var(--radius);
+    padding: 18px 20px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .bonus-card .b-icon { font-size: 28px; flex-shrink: 0; }
+
+  .bonus-card .b-text h3 {
+    font-size: 14px;
+    font-weight: 900;
+    margin-bottom: 3px;
+  }
+
+  .bonus-card .b-text p {
+    font-size: 12px;
+    color: rgba(0,0,0,0.6);
+    line-height: 1.5;
+  }
+
+  /* ── HOW ── */
+  .how { background: var(--white); }
+
+  .how-list { display: flex; flex-direction: column; gap: 0; }
+
+  .how-item {
+    display: flex;
+    gap: 16px;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--gray-mid);
+  }
+
+  .how-item:last-child { border-bottom: none; }
+
+  .how-num {
+    font-family: 'Space Mono', monospace;
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--gray-mid);
+    flex-shrink: 0;
+    width: 36px;
+    line-height: 1;
+    padding-top: 2px;
+  }
+
+  .how-text h3 {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+
+  .how-text p {
+    font-size: 13px;
+    color: var(--gray-dark);
+    line-height: 1.6;
+  }
+
+  /* ── FINAL CTA ── */
+  .final-cta {
+    background: var(--black);
+    padding: 52px 24px 56px;
+    text-align: center;
+  }
+
+  .final-cta .fc-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    color: var(--yellow);
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+
+  .final-cta .fc-title {
+    font-size: clamp(24px, 7vw, 36px);
+    font-weight: 900;
+    color: var(--white);
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    margin-bottom: 10px;
+  }
+
+  .final-cta .fc-sub {
+    font-size: 14px;
+    color: rgba(255,255,255,0.5);
+    line-height: 1.7;
+    margin-bottom: 32px;
+    font-weight: 300;
+  }
+
+  .final-cta .cta-btn {
+    max-width: 340px;
+    margin: 0 auto;
+  }
+
+  .final-cta .note {
+    font-size: 12px;
+    color: rgba(255,255,255,0.25);
+    margin-top: 16px;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: #0a0a0a;
+    padding: 20px 24px;
+    text-align: center;
+    font-size: 11px;
+    color: rgba(255,255,255,0.2);
+    font-family: 'Space Mono', monospace;
+    letter-spacing: 0.05em;
+  }
+
+  /* fade-in */
+  .fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+  .fade-in.visible {
+    opacity: 1;
+    transform: none;
+  }
+</style>
+</head>
+<body>
+
+<!-- ══ HERO ══ -->
+<section class="hero">
+  <div class="hero-img-wrap">
+    <img src="https://i.ibb.co/wh9Grmrf/photo-2026-03-13-14-36-19.jpg" alt="Calbee 卡樂比">
+  </div>
+  <div class="hero-content">
+    <div>
+      <p class="brand-tag">🍟 Calbee 卡樂比 × 兼職機會</p>
+      <h1 class="hero-title">你注意到<br>新零食上市了嗎？<br><span>這份工作為你而設。</span></h1>
+      <p class="hero-sub">每天 2 小時、線上完成、時薪最高 NT$300</p>
+    </div>
+    <a href="https://lin.ee/dt7AL10" class="cta-btn" target="_blank" rel="noopener">
+      <svg width="20" height="20" fill="none" viewBox="0 0 24 24"><path fill="#000" d="M20 10.999h2C22 5.869 18.127 2 12.99 2v2C17.052 4 20 6.943 20 10.999z"/><path fill="#000" d="M13 8c2.103 0 3 .897 3 3h2c0-3.225-1.775-5-5-5v2zm3.422 5.443a1.001 1.001 0 0 0-1.391.043l-2.393 2.461c-.576-.11-1.734-.47-2.926-1.66-1.192-1.193-1.553-2.354-1.66-2.926l2.459-2.394a1 1 0 0 0 .043-1.391L6.859 3.785a1 1 0 0 0-1.391-.087l-2.17 1.861a1 1 0 0 0-.29.649c-.051.671-.18 2.784 1.372 5.632C5.984 14.283 8.546 16.576 12.16 17.67a6.715 6.715 0 0 0 1.98.33c.462 0 .897-.073 1.27-.204a1.003 1.003 0 0 0 .481-.344l1.842-2.185a1 1 0 0 0-.311-1.824z"/></svg>
+      立即了解合作資訊
+    </a>
+  </div>
+</section>
+
+<!-- ══ INTRO ══ -->
+<section class="intro fade-in">
+  <p class="section-label">關於這份工作</p>
+  <h2 class="section-title">你可能就是<br>我們在找的人</h2>
+  <p class="intro-body">
+    有些人逛超市，只是買零食。<br>
+    但也有人會注意到——<br>
+    <span class="highlight">新品上市</span>、季節限定口味、不同通路的包裝版本。<br><br>
+    如果你剛好是這種<strong>會觀察零食市場的人</strong>，那這份工作很適合你。
+  </p>
+</section>
+
+<!-- ══ TASKS ══ -->
+<section class="tasks fade-in">
+  <p class="section-label">工作內容</p>
+  <h2 class="section-title">你負責做什麼</h2>
+  <div class="task-list">
+    <div class="task-card">
+      <div class="task-icon">📋</div>
+      <div class="task-text">
+        <h3>整理零食商品資訊</h3>
+        <p>整理市面零食商品資料，包含品牌、口味與商品分類。</p>
+      </div>
+    </div>
+    <div class="task-card">
+      <div class="task-icon">🔍</div>
+      <div class="task-text">
+        <h3>確認商品基本資料</h3>
+        <p>檢查商品名稱、包裝版本、口味資訊是否一致。</p>
+      </div>
+    </div>
+    <div class="task-card">
+      <div class="task-icon">🔥</div>
+      <div class="task-text">
+        <h3>標記熱門零食</h3>
+        <p>整理近期市場討論度較高或新品上市的零食。</p>
+      </div>
+    </div>
+    <div class="task-card">
+      <div class="task-icon">📊</div>
+      <div class="task-text">
+        <h3>簡單回報資料</h3>
+        <p>將整理完成的資料填入公司提供的表單系統。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ ADS ══ -->
+<section class="ads fade-in">
+  <p class="section-label">合作品牌</p>
+  <h2 class="section-title">認識我們的產品</h2>
+  <div class="ads-scroll" id="adsScroll">
+    <div class="ad-card">
+      <img src="https://i.ibb.co/zW4jrwCS/3.png" alt="Calbee 廣告">
+    </div>
+  </div>
+</section>
+
+<!-- ══ CONDITIONS ══ -->
+<section class="conditions fade-in">
+  <p class="section-label">薪資 & 時間</p>
+  <h2 class="section-title">你能得到什麼</h2>
+  <div class="cond-grid">
+    <div class="cond-card">
+      <div class="val">NT$250<span>起</span></div>
+      <div class="lbl">時薪<br>依熟悉度調整</div>
+    </div>
+    <div class="cond-card">
+      <div class="val">2<span>小時</span></div>
+      <div class="lbl">每日任務量<br>彈性安排時間</div>
+    </div>
+  </div>
+  <div class="bonus-card">
+    <div class="b-icon">🎁</div>
+    <div class="b-text">
+      <h3>每週任務完成獎金</h3>
+      <p>穩定配合可獲得額外任務獎金，<br>表現佳者可長期合作。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══ HOW ══ -->
+<section class="how fade-in">
+  <p class="section-label">工作方式</p>
+  <h2 class="section-title">怎麼開始</h2>
+  <div class="how-list">
+    <div class="how-item">
+      <div class="how-num">01</div>
+      <div class="how-text">
+        <h3>線上協作為主</h3>
+        <p>不需到場，所有工作皆可遠端完成。</p>
+      </div>
+    </div>
+    <div class="how-item">
+      <div class="how-num">02</div>
+      <div class="how-text">
+        <h3>清楚 SOP 與培訓</h3>
+        <p>公司提供完整流程說明與範例，新手也能快速上手。</p>
+      </div>
+    </div>
+    <div class="how-item">
+      <div class="how-num">03</div>
+      <div class="how-text">
+        <h3>適合兼職或課後</h3>
+        <p>彈性時間安排，適合學生或有空閒時間者。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FINAL CTA ══ -->
+<section class="final-cta fade-in">
+  <p class="fc-label">立即加入</p>
+  <h2 class="fc-title">愛觀察零食市場？<br>這份工作為你而設。</h2>
+  <p class="fc-sub">點擊下方按鈕，透過 LINE 了解詳細合作資訊</p>
+  <a href="https://lin.ee/dt7AL10" class="cta-btn" target="_blank" rel="noopener">
+    <svg width="20" height="20" fill="none" viewBox="0 0 24 24"><path fill="#000" d="M20 10.999h2C22 5.869 18.127 2 12.99 2v2C17.052 4 20 6.943 20 10.999z"/><path fill="#000" d="M13 8c2.103 0 3 .897 3 3h2c0-3.225-1.775-5-5-5v2zm3.422 5.443a1.001 1.001 0 0 0-1.391.043l-2.393 2.461c-.576-.11-1.734-.47-2.926-1.66-1.192-1.193-1.553-2.354-1.66-2.926l2.459-2.394a1 1 0 0 0 .043-1.391L6.859 3.785a1 1 0 0 0-1.391-.087l-2.17 1.861a1 1 0 0 0-.29.649c-.051.671-.18 2.784 1.372 5.632C5.984 14.283 8.546 16.576 12.16 17.67a6.715 6.715 0 0 0 1.98.33c.462 0 .897-.073 1.27-.204a1.003 1.003 0 0 0 .481-.344l1.842-2.185a1 1 0 0 0-.311-1.824z"/></svg>
+    立即了解合作資訊
+  </a>
+  <p class="note">LINE 私訊即可，歡迎發問</p>
+</section>
+
+<footer>© 2026 CALBEE 卡樂比 · ALL RIGHTS RESERVED</footer>
+
+<script>
+  // Scroll fade-in
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+  // Ads scroll dots
+  const scroll = document.getElementById('adsScroll');
+  const dots = document.querySelectorAll('#dots span');
+  if (scroll) {
+    scroll.addEventListener('scroll', () => {
+      const idx = Math.round(scroll.scrollLeft / (scroll.scrollWidth / 3));
+      dots.forEach((d, i) => d.classList.toggle('active', i === idx));
+    });
+  }
+</script>
+</body>
+</html>
